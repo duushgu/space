@@ -36,7 +36,7 @@ def on_on_overlap(sprite, otherSprite):
         mySprite.say_text("easy?, now INTENSIVE", 3000, False)
         music.play(music.string_playable("C E G C G E G C ", 273),
             music.PlaybackMode.UNTIL_DONE)
-        enemySpeed = 99
+        enemySpeed += 100
     music.play(music.create_sound_effect(WaveShape.NOISE,
             5000,
             600,
@@ -96,7 +96,7 @@ darts: List[Image] = []
 statusbar: StatusBarSprite = None
 mySprite: Sprite = None
 enemySpeed = 0
-enemySpeed = 50
+enemySpeed += 50
 scene.set_background_image(assets.image("""
     Galaxy
     """))
@@ -130,7 +130,7 @@ def on_update_interval2():
     global my_enemy
     my_enemy = sprites.create_projectile_from_side(assets.image("""
         Spider
-        """), 0, 50)
+        """), 0, enemySpeed)
     my_enemy.x = randint(5, 150)
     my_enemy.set_kind(SpriteKind.enemy)
     animation.run_image_animation(my_enemy,
@@ -139,7 +139,7 @@ def on_update_interval2():
             """),
         100,
         True)
-game.on_update_interval(2000, on_update_interval2)
+game.on_update_interval(500, on_update_interval2)
 
 def on_update_interval3():
     statusbar.value += -1
@@ -149,7 +149,7 @@ def on_update_interval4():
     global my_enemy
     my_enemy = sprites.create_projectile_from_side(assets.image("""
         Spider
-        """), 0, 50)
+        """), 0, enemySpeed)
     my_enemy.x = randint(5, 150)
     my_enemy.set_kind(SpriteKind.enemy)
     animation.run_image_animation(my_enemy,
