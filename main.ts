@@ -3,7 +3,7 @@ namespace SpriteKind {
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     darts = [assets.image`Dart1`, assets.image`Dart2`, assets.image`Dart1`]
-    projectile = sprites.createProjectileFromSprite(darts._pickRandom(), mySprite, 0, -70)
+    projectile = sprites.createProjectileFromSprite(darts._pickRandom(), mySprite, 0, -140)
     projectile.startEffect(effects.warmRadial, 100)
     music.play(music.createSoundEffect(WaveShape.Square, 1600, 1, 255, 0, 300, SoundExpressionEffect.None, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
 })
@@ -15,7 +15,7 @@ sprites.onOverlap(SpriteKind.Enemy, SpriteKind.Projectile, function (sprite, oth
         info.changeScoreBy(5)
         mySprite.sayText("easy?, now INTENSIVE", 3000, false)
         music.play(music.stringPlayable("C E G C G E G C ", 273), music.PlaybackMode.UntilDone)
-        enemySpeed = 99
+        enemySpeed += 100
     }
     music.play(music.createSoundEffect(WaveShape.Noise, 5000, 600, 255, 0, 500, SoundExpressionEffect.Warble, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
 })
@@ -45,7 +45,7 @@ let darts: Image[] = []
 let statusbar: StatusBarSprite = null
 let mySprite: Sprite = null
 let enemySpeed = 0
-enemySpeed = 50
+enemySpeed += 50
 scene.setBackgroundImage(assets.image`Galaxy`)
 scroller.scrollBackgroundWithSpeed(0, 10)
 mySprite = sprites.create(assets.image`Rocket`, SpriteKind.Player)
@@ -65,8 +65,8 @@ game.onUpdateInterval(5000, function () {
     myFuel.x = randint(5, 155)
     myFuel.setKind(SpriteKind.Gas)
 })
-game.onUpdateInterval(2000, function () {
-    my_enemy = sprites.createProjectileFromSide(assets.image`Spider`, 0, 50)
+game.onUpdateInterval(500, function () {
+    my_enemy = sprites.createProjectileFromSide(assets.image`Spider`, 0, enemySpeed)
     my_enemy.x = randint(5, 150)
     my_enemy.setKind(SpriteKind.Enemy)
     animation.runImageAnimation(
@@ -80,7 +80,7 @@ game.onUpdateInterval(300, function () {
     statusbar.value += -1
 })
 game.onUpdateInterval(1200, function () {
-    my_enemy = sprites.createProjectileFromSide(assets.image`Spider`, 0, 50)
+    my_enemy = sprites.createProjectileFromSide(assets.image`Spider`, 0, enemySpeed)
     my_enemy.x = randint(5, 150)
     my_enemy.setKind(SpriteKind.Enemy)
     animation.runImageAnimation(

@@ -13,7 +13,7 @@ def on_a_pressed():
         assets.image("""
             Dart1
             """)]
-    projectile = sprites.create_projectile_from_sprite(darts._pick_random(), mySprite, 0, -70)
+    projectile = sprites.create_projectile_from_sprite(darts._pick_random(), mySprite, 0, -140)
     projectile.start_effect(effects.warm_radial, 100)
     music.play(music.create_sound_effect(WaveShape.SQUARE,
             1600,
@@ -31,12 +31,12 @@ def on_on_overlap(sprite, otherSprite):
     sprite.destroy(effects.confetti, 200)
     otherSprite.destroy(effects.confetti, 200)
     info.change_score_by(1)
-    if info.score() == 10:
+    if info.score() == 1:
         info.change_score_by(5)
-        mySprite.say_text("+5 Level-Up Bonus!", 2000, False)
+        mySprite.say_text("easy?, now INTENSIVE", 3000, False)
         music.play(music.string_playable("C E G C G E G C ", 273),
             music.PlaybackMode.UNTIL_DONE)
-        enemySpeed += 70
+        enemySpeed = 99
     music.play(music.create_sound_effect(WaveShape.NOISE,
             5000,
             600,
@@ -54,7 +54,7 @@ def on_on_overlap2(sprite3, otherSprite3):
     scene.camera_shake(4, 500)
     music.play(music.create_sound_effect(WaveShape.SQUARE,
             5000,
-            2801,
+            2845,
             255,
             0,
             500,
@@ -77,19 +77,26 @@ def on_on_overlap3(sprite2, otherSprite2):
         music.PlaybackMode.UNTIL_DONE)
 sprites.on_overlap(SpriteKind.player, SpriteKind.Gas, on_on_overlap3)
 
+def on_life_zero():
+    game.over(False)
+    music.play(music.string_playable("E D C A G E D C ", 273),
+        music.PlaybackMode.UNTIL_DONE)
+info.on_life_zero(on_life_zero)
+
 def on_on_zero(status):
     game.over(False)
-    music.play(music.string_playable("E D C A G E D C ", 120),
+    music.play(music.string_playable("E D C A G E D C ", 273),
         music.PlaybackMode.UNTIL_DONE)
 statusbars.on_zero(StatusBarKind.energy, on_on_zero)
 
 my_enemy: Sprite = None
 myFuel: Sprite = None
-enemySpeed = 0
 projectile: Sprite = None
 darts: List[Image] = []
 statusbar: StatusBarSprite = None
 mySprite: Sprite = None
+enemySpeed = 0
+enemySpeed = 50
 scene.set_background_image(assets.image("""
     Galaxy
     """))
@@ -107,7 +114,7 @@ animation.run_image_animation(mySprite,
     True)
 statusbar = statusbars.create(20, 4, StatusBarKind.energy)
 statusbar.attach_to_sprite(mySprite, -25, 0)
-music.play(music.string_playable("C G F E D C D C ", 273),
+music.play(music.string_playable("C G F E D C D C ", 246),
     music.PlaybackMode.UNTIL_DONE)
 
 def on_update_interval():
