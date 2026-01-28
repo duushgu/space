@@ -1,3 +1,93 @@
-Hallo Gandush,
-dieser Text kommt von meiner eigenen Website.
-Version: 1.0
+# -*- coding: utf-8 -*-
+"""
+Spyder-Editor
+
+Dies ist eine temporäre Skriptdatei.
+"""
+from tkinter import*
+import math, random
+import matplotlib.pyplot as plt
+
+#Formular
+gui=Tk()
+gui.minsize(300,300)
+gui.configure(bg='lightblue') #Man kann Farbe geben
+
+#Label
+Label(gui, text='geben a:').place(x=30,y=30)
+Label(gui, text='geben b').place(x=30,y=60)
+Label(gui, text='geben dx').place(x=30,y=90)
+Label(gui, text='geben Punktzahl').place(x=30,y=120)
+
+#Entry
+e_a=Entry(gui)
+e_b=Entry(gui)
+e_sw=Entry(gui)
+e_p=Entry(gui)
+
+#Startwerte
+e_a.insert(0,1)
+e_b.insert(0,1)
+e_sw.insert(0,0.1)
+e_p.insert(0,1000)
+
+#Place
+e_a.place(x=100,y=30)
+e_b.place(x=100,y=60)
+e_sw.place(x=100,y=90)
+e_p.place(x=100,y=120)
+
+#Funktionen
+def prüfen():
+    global a,b,sw,p
+    try:
+        a=float(e_a.get())
+        b=float(e_b.get())
+        sw=float(e_sw.get())
+        p=float(e_p.get())
+        print('Eingabe gelesen')
+        return True 
+    except:
+        print('Eingabe Fehler')
+        return False 
+
+def funktion():
+    global x,y
+    if prüfen(): #Hier kann man weiter mit den Eingaben rechnen
+        i=-3
+        x=[]
+        y=[]
+        while i<=3:
+            x.append(i)
+            y.append(a*20*math.sin(i+10)+b*i**3)
+            i+=sw
+        
+def diagramm():
+    plt.plot(x,y,label='Funktion')
+    plt.grid()
+    plt.legend()
+    plt.show()
+    
+        
+def export():
+    file=open('c:/users/gandu/Übung_230226.txt','w')
+    #'w' ist eine attribute zu schreiben
+    
+    for l in range(len(x)):
+    #l ist hier index. Index definiert nummer der glied.
+    
+        file.write((str(round(x[l],3)) + ' ' + str(round(y[l],3)) + '\n'))
+        #Zeichen zu schreiben muss es string sein
+    file.close()
+    
+def schließen():
+    gui.destroy()
+    
+Button(gui,text='prüfen',command=prüfen).place(x=30,y=200)
+b2=Button(gui,text='zeichen',command=diagramm).place(x=30,y=230)
+#state macht buttons inaktiv
+Button(gui,text='berechnen',command=funktion).place(x=100,y=200)
+Button(gui,text='exportieren',command=export).place(x=100,y=230)
+Button(gui,text='beenden',command=schließen, bg='red').place(x=70,y=260)
+
+gui.mainloop()
