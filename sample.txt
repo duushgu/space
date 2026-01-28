@@ -1,0 +1,3 @@
+Hallo Gandush,
+dieser Text kommt von meiner eigenen Website.
+Version: 1.0
